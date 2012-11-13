@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db143275" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=148.81.130.59;Initial Catalog=db143275;User ID=st143275" SettingsObjectName="SScheduler.Properties.Settings" SettingsPropertyName="db143275ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.klasa" Member="klasas">
+    <Type Name="klasa">
+      <Column Name="id_klasa" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="liczebnosc" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="rok" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="identyfikator" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nauczyciel" Member="nauczyciels">
+    <Type Name="nauczyciel">
+      <Column Name="id_nauczyciel" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="imie" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="nazwisko" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="id_specjalizacja" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.przedmiot" Member="przedmiots">
+    <Type Name="przedmiot">
+      <Column Name="id_przedmiot" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nazwa" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sala" Member="salas">
+    <Type Name="sala">
+      <Column Name="id_sala" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pojemnosc" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="numer" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
