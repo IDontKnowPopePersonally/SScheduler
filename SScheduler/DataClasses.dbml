@@ -13,7 +13,6 @@
       <Column Name="id_nauczyciel" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="imie" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
       <Column Name="nazwisko" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="id_specjalizacja" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.przedmiot" Member="przedmiots">

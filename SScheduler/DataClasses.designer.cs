@@ -253,8 +253,6 @@ namespace SScheduler
 		
 		private string _nazwisko;
 		
-		private short _id_specjalizacja;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -265,8 +263,6 @@ namespace SScheduler
     partial void OnimieChanged();
     partial void OnnazwiskoChanging(string value);
     partial void OnnazwiskoChanged();
-    partial void Onid_specjalizacjaChanging(short value);
-    partial void Onid_specjalizacjaChanged();
     #endregion
 		
 		public nauczyciel()
@@ -330,26 +326,6 @@ namespace SScheduler
 					this._nazwisko = value;
 					this.SendPropertyChanged("nazwisko");
 					this.OnnazwiskoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_specjalizacja", DbType="SmallInt NOT NULL")]
-		public short id_specjalizacja
-		{
-			get
-			{
-				return this._id_specjalizacja;
-			}
-			set
-			{
-				if ((this._id_specjalizacja != value))
-				{
-					this.Onid_specjalizacjaChanging(value);
-					this.SendPropertyChanging();
-					this._id_specjalizacja = value;
-					this.SendPropertyChanged("id_specjalizacja");
-					this.Onid_specjalizacjaChanged();
 				}
 			}
 		}

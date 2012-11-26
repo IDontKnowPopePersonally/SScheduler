@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.GB_Klasa = new System.Windows.Forms.GroupBox();
             this.GB_Nauczyciel = new System.Windows.Forms.GroupBox();
+            this.CB_spec_nauczyciel = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.TB_N_imie = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,21 +55,21 @@
             this.TB_S_pojemnosc = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.TB_S_numer = new System.Windows.Forms.TextBox();
-            this.CB_co_zrobic = new System.Windows.Forms.ComboBox();
+            this.CB_menu1 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.GB_Dodaj_dane = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.CB_jakie_dodac_dane = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.CB_spec_nauczyciel = new System.Windows.Forms.ComboBox();
+            this.GB_menu2 = new System.Windows.Forms.GroupBox();
+            this.BT_generateSchedule = new System.Windows.Forms.Button();
+            this.LB_menu2 = new System.Windows.Forms.Label();
+            this.CB_menu2 = new System.Windows.Forms.ComboBox();
+            this.BW_generateSchedule = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.klasaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.db143275DataSet)).BeginInit();
             this.GB_Klasa.SuspendLayout();
             this.GB_Nauczyciel.SuspendLayout();
             this.GB_Przedmiot.SuspendLayout();
             this.GB_Sala.SuspendLayout();
-            this.GB_Dodaj_dane.SuspendLayout();
+            this.GB_menu2.SuspendLayout();
             this.SuspendLayout();
             // 
             // klasaBindingSource
@@ -92,6 +94,7 @@
             this.BT_dodaj_dane.TabIndex = 13;
             this.BT_dodaj_dane.Text = "Dodaj!";
             this.BT_dodaj_dane.UseVisualStyleBackColor = true;
+            this.BT_dodaj_dane.Visible = false;
             this.BT_dodaj_dane.Click += new System.EventHandler(this.button1_Click);
             // 
             // TB_K_identyfikator_klasy
@@ -174,6 +177,25 @@
             this.GB_Nauczyciel.TabIndex = 15;
             this.GB_Nauczyciel.TabStop = false;
             this.GB_Nauczyciel.Text = "Nauczyciel";
+            // 
+            // CB_spec_nauczyciel
+            // 
+            this.CB_spec_nauczyciel.FormattingEnabled = true;
+            this.CB_spec_nauczyciel.Location = new System.Drawing.Point(103, 80);
+            this.CB_spec_nauczyciel.Name = "CB_spec_nauczyciel";
+            this.CB_spec_nauczyciel.Size = new System.Drawing.Size(110, 21);
+            this.CB_spec_nauczyciel.TabIndex = 13;
+            this.CB_spec_nauczyciel.Text = "Wybierz przedmiot..";
+            this.CB_spec_nauczyciel.Click += new System.EventHandler(this.CB_spec_nauczyciel_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(19, 82);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(78, 13);
+            this.label12.TabIndex = 11;
+            this.label12.Text = "Uprawniony do";
             // 
             // label4
             // 
@@ -284,15 +306,15 @@
             this.TB_S_numer.Size = new System.Drawing.Size(100, 20);
             this.TB_S_numer.TabIndex = 10;
             // 
-            // CB_co_zrobic
+            // CB_menu1
             // 
-            this.CB_co_zrobic.FormattingEnabled = true;
-            this.CB_co_zrobic.Location = new System.Drawing.Point(132, 43);
-            this.CB_co_zrobic.Name = "CB_co_zrobic";
-            this.CB_co_zrobic.Size = new System.Drawing.Size(158, 21);
-            this.CB_co_zrobic.TabIndex = 16;
-            this.CB_co_zrobic.Text = "Wybierz opcję..";
-            this.CB_co_zrobic.SelectedIndexChanged += new System.EventHandler(this.CB_co_zrobic_SelectedIndexChanged);
+            this.CB_menu1.FormattingEnabled = true;
+            this.CB_menu1.Location = new System.Drawing.Point(132, 43);
+            this.CB_menu1.Name = "CB_menu1";
+            this.CB_menu1.Size = new System.Drawing.Size(158, 21);
+            this.CB_menu1.TabIndex = 16;
+            this.CB_menu1.Text = "Wybierz opcję..";
+            this.CB_menu1.SelectedIndexChanged += new System.EventHandler(this.CB_menu1_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -313,71 +335,73 @@
             this.label9.TabIndex = 18;
             this.label9.Text = "Co chcesz zrobić ?";
             // 
-            // GB_Dodaj_dane
+            // GB_menu2
             // 
-            this.GB_Dodaj_dane.Controls.Add(this.label11);
-            this.GB_Dodaj_dane.Controls.Add(this.CB_jakie_dodac_dane);
-            this.GB_Dodaj_dane.Location = new System.Drawing.Point(32, 86);
-            this.GB_Dodaj_dane.Name = "GB_Dodaj_dane";
-            this.GB_Dodaj_dane.Size = new System.Drawing.Size(258, 100);
-            this.GB_Dodaj_dane.TabIndex = 19;
-            this.GB_Dodaj_dane.TabStop = false;
-            this.GB_Dodaj_dane.Text = "Dodaj dane";
+            this.GB_menu2.Controls.Add(this.BT_generateSchedule);
+            this.GB_menu2.Controls.Add(this.LB_menu2);
+            this.GB_menu2.Controls.Add(this.CB_menu2);
+            this.GB_menu2.Location = new System.Drawing.Point(32, 86);
+            this.GB_menu2.Name = "GB_menu2";
+            this.GB_menu2.Size = new System.Drawing.Size(258, 100);
+            this.GB_menu2.TabIndex = 19;
+            this.GB_menu2.TabStop = false;
+            this.GB_menu2.Text = "Dodaj dane";
+            this.GB_menu2.Visible = false;
             // 
-            // label11
+            // BT_generateSchedule
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 43);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(96, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Co chcesz dodać?";
+            this.BT_generateSchedule.Location = new System.Drawing.Point(142, 67);
+            this.BT_generateSchedule.Name = "BT_generateSchedule";
+            this.BT_generateSchedule.Size = new System.Drawing.Size(110, 23);
+            this.BT_generateSchedule.TabIndex = 2;
+            this.BT_generateSchedule.Text = "Generuj !";
+            this.BT_generateSchedule.UseVisualStyleBackColor = true;
+            this.BT_generateSchedule.Visible = false;
+            this.BT_generateSchedule.Click += new System.EventHandler(this.BT_generateSchedule_Click);
             // 
-            // CB_jakie_dodac_dane
+            // LB_menu2
             // 
-            this.CB_jakie_dodac_dane.FormattingEnabled = true;
-            this.CB_jakie_dodac_dane.Location = new System.Drawing.Point(121, 40);
-            this.CB_jakie_dodac_dane.Name = "CB_jakie_dodac_dane";
-            this.CB_jakie_dodac_dane.Size = new System.Drawing.Size(121, 21);
-            this.CB_jakie_dodac_dane.TabIndex = 0;
-            this.CB_jakie_dodac_dane.Text = "Wybierz opcję..";
-            this.CB_jakie_dodac_dane.SelectedIndexChanged += new System.EventHandler(this.CB_jakie_dodac_dane_SelectedIndexChanged);
+            this.LB_menu2.AutoSize = true;
+            this.LB_menu2.Location = new System.Drawing.Point(6, 43);
+            this.LB_menu2.Name = "LB_menu2";
+            this.LB_menu2.Size = new System.Drawing.Size(96, 13);
+            this.LB_menu2.TabIndex = 1;
+            this.LB_menu2.Text = "Co chcesz dodać?";
             // 
-            // label12
+            // CB_menu2
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(19, 82);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(78, 13);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "Uprawniony do";
+            this.CB_menu2.FormattingEnabled = true;
+            this.CB_menu2.Location = new System.Drawing.Point(142, 40);
+            this.CB_menu2.Name = "CB_menu2";
+            this.CB_menu2.Size = new System.Drawing.Size(110, 21);
+            this.CB_menu2.TabIndex = 0;
+            this.CB_menu2.Text = "Wybierz opcję..";
+            this.CB_menu2.SelectedIndexChanged += new System.EventHandler(this.CB_jakie_dodac_dane_SelectedIndexChanged);
             // 
-            // CB_spec_nauczyciel
+            // BW_generateSchedule
             // 
-            this.CB_spec_nauczyciel.FormattingEnabled = true;
-            this.CB_spec_nauczyciel.Location = new System.Drawing.Point(103, 80);
-            this.CB_spec_nauczyciel.Name = "CB_spec_nauczyciel";
-            this.CB_spec_nauczyciel.Size = new System.Drawing.Size(110, 21);
-            this.CB_spec_nauczyciel.TabIndex = 13;
-            this.CB_spec_nauczyciel.Text = "Wybierz przedmiot..";
-            this.CB_spec_nauczyciel.Click += new System.EventHandler(this.CB_spec_nauczyciel_Click);
+            this.BW_generateSchedule.WorkerReportsProgress = true;
+            this.BW_generateSchedule.WorkerSupportsCancellation = true;
+            this.BW_generateSchedule.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BW_generateSchedule_DoWork);
+            this.BW_generateSchedule.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BW_generateSchedule_ProgressChanged);
+            this.BW_generateSchedule.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BW_generateSchedule_RunWorkerCompleted);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 345);
-            this.Controls.Add(this.GB_Dodaj_dane);
+            this.Controls.Add(this.GB_menu2);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.CB_co_zrobic);
+            this.Controls.Add(this.CB_menu1);
             this.Controls.Add(this.GB_Sala);
             this.Controls.Add(this.GB_Przedmiot);
             this.Controls.Add(this.GB_Nauczyciel);
             this.Controls.Add(this.BT_dodaj_dane);
             this.Controls.Add(this.GB_Klasa);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "School Scheduler";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.klasaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.db143275DataSet)).EndInit();
@@ -389,8 +413,8 @@
             this.GB_Przedmiot.PerformLayout();
             this.GB_Sala.ResumeLayout(false);
             this.GB_Sala.PerformLayout();
-            this.GB_Dodaj_dane.ResumeLayout(false);
-            this.GB_Dodaj_dane.PerformLayout();
+            this.GB_menu2.ResumeLayout(false);
+            this.GB_menu2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,14 +446,16 @@
         private System.Windows.Forms.TextBox TB_S_pojemnosc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox TB_S_numer;
-        private System.Windows.Forms.ComboBox CB_co_zrobic;
+        private System.Windows.Forms.ComboBox CB_menu1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox GB_Dodaj_dane;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox CB_jakie_dodac_dane;
+        private System.Windows.Forms.GroupBox GB_menu2;
+        private System.Windows.Forms.Label LB_menu2;
+        private System.Windows.Forms.ComboBox CB_menu2;
         private System.Windows.Forms.ComboBox CB_spec_nauczyciel;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button BT_generateSchedule;
+        public System.ComponentModel.BackgroundWorker BW_generateSchedule;
     }
 }
 
