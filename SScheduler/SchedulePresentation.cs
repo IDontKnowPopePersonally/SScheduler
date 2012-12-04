@@ -34,22 +34,24 @@ namespace SScheduler
                 };
              this.WindowState = FormWindowState.Maximized;
              TB_Path.Text = Directory.GetCurrentDirectory();
-
              
         }
 
         RadioButton checkedRB;
         string template;
+        List<object> contextLocal;
         private void rButtons_CheckedChanged(object sender, EventArgs e)
         {
             checkedRB = rButtons.Where(rb => rb.Checked == true).First();
 
             IQueryable<object> context;
+            
             var dcdc = new DataClassesDataContext(Form1.connectionString);
             if (checkedRB == RB_klasa)
             {
                 context = from element in dcdc.klasas
                           select element;
+                contextLocal = new List<object>(context);
                 template = SScheduler.Properties.Resources.tabela_klasy;
             }
             else
@@ -57,6 +59,7 @@ namespace SScheduler
                 {
                     context = from element in dcdc.nauczyciels
                               select element;
+                    contextLocal = new List<object>(context);
                     template = SScheduler.Properties.Resources.tabela_nauczyciel;
                 }
                 else
@@ -64,12 +67,14 @@ namespace SScheduler
                     {
                         context = from element in dcdc.salas
                                   select element;
+                        contextLocal = new List<object>(context);
                         template = SScheduler.Properties.Resources.tabela_sala;
                     }
                     else context = null;
 
             DG_elements.DataSource = context;
-            
+
+
             foreach (var col in DG_elements.Columns)
                 if (((DataGridViewColumn)col).Name == "checkCol")
                     continue;
@@ -77,13 +82,12 @@ namespace SScheduler
                     ((DataGridViewColumn)col).ReadOnly = true;
 
             webBrowser1.SendToBack();
-
         }
 
-        List<object> checkedRows;
+        List<DataGridViewRow> checkedRows;
         private void BT_utworzPlan_Click(object sender, EventArgs e)
         {
-            checkedRows = new List<object>();
+            checkedRows = new List<DataGridViewRow>();
             for (int i = 0; i < DG_elements.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(DG_elements.Rows[i].Cells["checkCol"].Value) == true)
@@ -101,6 +105,59 @@ namespace SScheduler
 
             webBrowser1.DocumentText = template;            
             DG_elements.SendToBack();
+
+            checkedRows.ForEach(row =>
+            {
+                var item = GetScheduleName(fromRowToEntity(row));
+                if (!LBox_generatedSchedules.Items.Contains(item))
+                    LBox_generatedSchedules.Items.Add(item);
+            });
+
+        }
+
+        private string GetScheduleName(object row)
+        {       
+            StringBuilder SB_name = new StringBuilder();
+            if (checkedRB == RB_nauczyciel)
+                SB_name.Append(RB_nauczyciel.Text + "_" + ((nauczyciel)row).nazwisko.Trim() + "_" + ((nauczyciel)row).imie);
+            else
+                if (checkedRB == RB_klasa)
+                    SB_name.Append(RB_klasa.Text + "_" + ((klasa)row).rok + ((klasa)row).identyfikator);
+                else
+                    if (checkedRB == RB_sala)
+                        SB_name.Append(RB_sala.Text + "_" + ((sala)row).numer);
+
+            return SB_name.ToString();
+        }
+
+        private object fromRowToEntity(DataGridViewRow row)
+        {
+
+            StringBuilder SB_name = new StringBuilder();
+            if (checkedRB == RB_nauczyciel)
+            {                
+                foreach (DataGridViewCell cell in row.Cells)
+                    if (cell.GetType() == typeof(DataGridViewTextBoxCell))
+                        if(cell.ValueType == typeof(System.Guid))
+                            return contextLocal.Where(obj => ((nauczyciel)obj).id_nauczyciel == (Guid)cell.Value).First();   // OPTIMIZATION FFS !!!
+            }
+            else
+                if (checkedRB == RB_klasa)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                        if (cell.GetType() == typeof(DataGridViewTextBoxCell))
+                            if (cell.ValueType == typeof(System.Guid))
+                                return contextLocal.Where(obj => ((klasa)obj).id_klasa == (Guid)cell.Value).First();   // OPTIMIZATION FFS !!!
+                }
+                else
+                    if (checkedRB == RB_sala)
+                    {
+                        foreach (DataGridViewCell cell in row.Cells)
+                            if (cell.GetType() == typeof(DataGridViewTextBoxCell))
+                                if (cell.ValueType == typeof(System.Guid))
+                                    return contextLocal.Where(obj => ((sala)obj).id_sala == (Guid)cell.Value).First();   // OPTIMIZATION FFS !!!
+                    }
+            throw new InvalidOperationException();
         }
 
         private void BT_ChangePath_Click(object sender, EventArgs e)
