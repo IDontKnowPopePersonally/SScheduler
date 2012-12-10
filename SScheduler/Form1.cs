@@ -61,6 +61,7 @@ namespace SScheduler
             isInitialized = true;          
         }
 
+        public List<Guid> checkedSpecs;
         private void button1_Click(object sender, EventArgs e)
         {            
             dcdc = new DataClassesDataContext(connectionString);
@@ -99,6 +100,14 @@ namespace SScheduler
                             nowy_nauczyciel.nazwisko = TB_N_nazwisko.Text;
                             //nowy_nauczyciel.id_specjalizacja =  ((przedmiot)dcdc.przedmiots.Where(przdmt => przdmt.nazwa == CB_spec_nauczyciel.SelectedText)).id_przedmiot;
                             dcdc.nauczyciels.InsertOnSubmit(nowy_nauczyciel);
+                            foreach (Guid specID in checkedSpecs)
+                            {
+                                nauczyciel_przedmiot naucz_przdmt = new nauczyciel_przedmiot();
+                                naucz_przdmt.id_nauczyciel_przedmiot = Guid.NewGuid();
+                                naucz_przdmt.id_nauczyciel = nowy_nauczyciel.id_nauczyciel;
+                                naucz_przdmt.id_przedmiot = specID;
+                                dcdc.nauczyciel_przedmiots.InsertOnSubmit(naucz_przdmt);
+                            }
                             TB_N_imie.Text = string.Empty;
                             TB_N_nazwisko.Text = string.Empty;
                             CB_spec_nauczyciel.Text = "Wybierz przedmiot";
@@ -141,8 +150,11 @@ namespace SScheduler
                             Thread.Sleep(1);
                         }
 
-                    LB_menu2.Text = "Dla kogo wygenerować?";
+                    //LB_menu2.Text = "Dla kogo wygenerować?";
+                    CB_menu2.Visible = false;
+                    LB_menu2.Visible = false;
                     GB_menu2.Text = "Generuj plan";
+                    BT_generateSchedule.Visible = true;
                     GB_menu2.Visible = true;
                     
                 }
@@ -153,6 +165,8 @@ namespace SScheduler
                     GB_menu2.Text = "Dodaj dane";
                     LB_menu2.Text = "Co chcesz dodać?";
                     BT_generateSchedule.Visible = false;
+                    CB_menu2.Visible = true;
+                    LB_menu2.Visible = true;
                     GB_menu2.Visible = true;                    
                 }
             }
@@ -267,6 +281,20 @@ namespace SScheduler
             SchedulePresentation schPresentation = new SchedulePresentation();
             schPresentation.ShowDialog();
         }
+
+        private void BT_chose_spec_Click(object sender, EventArgs e)
+        {
+            if (TB_N_imie.Text != String.Empty && TB_N_nazwisko.Text != String.Empty)
+            {
+                SpecializationsView specView = new SpecializationsView(this);
+                specView.ShowDialog();
+            }
+            else
+                MessageBox.Show("Najpierw wypełnij pola Imię oraz Nazwisko!", "Ogarnij się!", MessageBoxButtons.OK, MessageBoxIcon.Stop); 
+        }
+
+
+
 
     }
 }

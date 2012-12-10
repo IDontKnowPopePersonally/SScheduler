@@ -84,9 +84,18 @@
     <Compile Include="SchedulePresentation.Designer.cs">
       <DependentUpon>SchedulePresentation.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpecializationsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpecializationsView.Designer.cs">
+      <DependentUpon>SpecializationsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="SchedulePresentation.resx">
       <DependentUpon>SchedulePresentation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpecializationsView.resx">
+      <DependentUpon>SpecializationsView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="DataClasses.dbml.layout">

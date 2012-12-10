@@ -41,12 +41,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.GB_Klasa = new System.Windows.Forms.GroupBox();
             this.GB_Nauczyciel = new System.Windows.Forms.GroupBox();
-            this.CB_spec_nauczyciel = new System.Windows.Forms.ComboBox();
+            this.BT_chose_spec = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.TB_N_imie = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.TB_N_nazwisko = new System.Windows.Forms.TextBox();
+            this.CB_spec_nauczyciel = new System.Windows.Forms.ComboBox();
             this.GB_Przedmiot = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TB_P_nazwa = new System.Windows.Forms.TextBox();
@@ -165,7 +166,7 @@
             // 
             // GB_Nauczyciel
             // 
-            this.GB_Nauczyciel.Controls.Add(this.CB_spec_nauczyciel);
+            this.GB_Nauczyciel.Controls.Add(this.BT_chose_spec);
             this.GB_Nauczyciel.Controls.Add(this.label12);
             this.GB_Nauczyciel.Controls.Add(this.label4);
             this.GB_Nauczyciel.Controls.Add(this.TB_N_imie);
@@ -178,15 +179,15 @@
             this.GB_Nauczyciel.TabStop = false;
             this.GB_Nauczyciel.Text = "Nauczyciel";
             // 
-            // CB_spec_nauczyciel
+            // BT_chose_spec
             // 
-            this.CB_spec_nauczyciel.FormattingEnabled = true;
-            this.CB_spec_nauczyciel.Location = new System.Drawing.Point(103, 80);
-            this.CB_spec_nauczyciel.Name = "CB_spec_nauczyciel";
-            this.CB_spec_nauczyciel.Size = new System.Drawing.Size(110, 21);
-            this.CB_spec_nauczyciel.TabIndex = 13;
-            this.CB_spec_nauczyciel.Text = "Wybierz przedmiot..";
-            this.CB_spec_nauczyciel.Click += new System.EventHandler(this.CB_spec_nauczyciel_Click);
+            this.BT_chose_spec.Location = new System.Drawing.Point(113, 75);
+            this.BT_chose_spec.Name = "BT_chose_spec";
+            this.BT_chose_spec.Size = new System.Drawing.Size(100, 26);
+            this.BT_chose_spec.TabIndex = 12;
+            this.BT_chose_spec.Text = "Wybierz";
+            this.BT_chose_spec.UseVisualStyleBackColor = true;
+            this.BT_chose_spec.Click += new System.EventHandler(this.BT_chose_spec_Click);
             // 
             // label12
             // 
@@ -230,6 +231,16 @@
             this.TB_N_nazwisko.Name = "TB_N_nazwisko";
             this.TB_N_nazwisko.Size = new System.Drawing.Size(100, 20);
             this.TB_N_nazwisko.TabIndex = 10;
+            // 
+            // CB_spec_nauczyciel
+            // 
+            this.CB_spec_nauczyciel.FormattingEnabled = true;
+            this.CB_spec_nauczyciel.Location = new System.Drawing.Point(362, 252);
+            this.CB_spec_nauczyciel.Name = "CB_spec_nauczyciel";
+            this.CB_spec_nauczyciel.Size = new System.Drawing.Size(110, 21);
+            this.CB_spec_nauczyciel.TabIndex = 13;
+            this.CB_spec_nauczyciel.Text = "Wybierz przedmiot..";
+            this.CB_spec_nauczyciel.Click += new System.EventHandler(this.CB_spec_nauczyciel_Click);
             // 
             // GB_Przedmiot
             // 
@@ -350,7 +361,7 @@
             // 
             // BT_generateSchedule
             // 
-            this.BT_generateSchedule.Location = new System.Drawing.Point(142, 67);
+            this.BT_generateSchedule.Location = new System.Drawing.Point(75, 40);
             this.BT_generateSchedule.Name = "BT_generateSchedule";
             this.BT_generateSchedule.Size = new System.Drawing.Size(110, 23);
             this.BT_generateSchedule.TabIndex = 2;
@@ -391,6 +402,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 345);
+            this.Controls.Add(this.CB_spec_nauczyciel);
             this.Controls.Add(this.GB_menu2);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label5);
@@ -456,6 +468,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button BT_generateSchedule;
         public System.ComponentModel.BackgroundWorker BW_generateSchedule;
+        private System.Windows.Forms.Button BT_chose_spec;
     }
 }
 

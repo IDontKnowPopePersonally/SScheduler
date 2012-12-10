@@ -42,6 +42,9 @@ namespace SScheduler
     partial void Insertsala(sala instance);
     partial void Updatesala(sala instance);
     partial void Deletesala(sala instance);
+    partial void Insertnauczyciel_przedmiot(nauczyciel_przedmiot instance);
+    partial void Updatenauczyciel_przedmiot(nauczyciel_przedmiot instance);
+    partial void Deletenauczyciel_przedmiot(nauczyciel_przedmiot instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -103,6 +106,14 @@ namespace SScheduler
 			get
 			{
 				return this.GetTable<sala>();
+			}
+		}
+		
+		public System.Data.Linq.Table<nauczyciel_przedmiot> nauczyciel_przedmiots
+		{
+			get
+			{
+				return this.GetTable<nauczyciel_przedmiot>();
 			}
 		}
 	}
@@ -253,6 +264,8 @@ namespace SScheduler
 		
 		private string _nazwisko;
 		
+		private EntitySet<nauczyciel_przedmiot> _nauczyciel_przedmiots;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -267,6 +280,7 @@ namespace SScheduler
 		
 		public nauczyciel()
 		{
+			this._nauczyciel_przedmiots = new EntitySet<nauczyciel_przedmiot>(new Action<nauczyciel_przedmiot>(this.attach_nauczyciel_przedmiots), new Action<nauczyciel_przedmiot>(this.detach_nauczyciel_przedmiots));
 			OnCreated();
 		}
 		
@@ -330,6 +344,19 @@ namespace SScheduler
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="nauczyciel_nauczyciel_przedmiot", Storage="_nauczyciel_przedmiots", ThisKey="id_nauczyciel", OtherKey="id_nauczyciel")]
+		public EntitySet<nauczyciel_przedmiot> nauczyciel_przedmiots
+		{
+			get
+			{
+				return this._nauczyciel_przedmiots;
+			}
+			set
+			{
+				this._nauczyciel_przedmiots.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -349,6 +376,18 @@ namespace SScheduler
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_nauczyciel_przedmiots(nauczyciel_przedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.nauczyciel = this;
+		}
+		
+		private void detach_nauczyciel_przedmiots(nauczyciel_przedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.nauczyciel = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.przedmiot")]
@@ -360,6 +399,8 @@ namespace SScheduler
 		private System.Guid _id_przedmiot;
 		
 		private string _nazwa;
+		
+		private EntitySet<nauczyciel_przedmiot> _nauczyciel_przedmiots;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -373,6 +414,7 @@ namespace SScheduler
 		
 		public przedmiot()
 		{
+			this._nauczyciel_przedmiots = new EntitySet<nauczyciel_przedmiot>(new Action<nauczyciel_przedmiot>(this.attach_nauczyciel_przedmiots), new Action<nauczyciel_przedmiot>(this.detach_nauczyciel_przedmiots));
 			OnCreated();
 		}
 		
@@ -416,6 +458,19 @@ namespace SScheduler
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="przedmiot_nauczyciel_przedmiot", Storage="_nauczyciel_przedmiots", ThisKey="id_przedmiot", OtherKey="id_przedmiot")]
+		public EntitySet<nauczyciel_przedmiot> nauczyciel_przedmiots
+		{
+			get
+			{
+				return this._nauczyciel_przedmiots;
+			}
+			set
+			{
+				this._nauczyciel_przedmiots.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -434,6 +489,18 @@ namespace SScheduler
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_nauczyciel_przedmiots(nauczyciel_przedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.przedmiot = this;
+		}
+		
+		private void detach_nauczyciel_przedmiots(nauczyciel_przedmiot entity)
+		{
+			this.SendPropertyChanging();
+			entity.przedmiot = null;
 		}
 	}
 	
@@ -522,6 +589,198 @@ namespace SScheduler
 					this._numer = value;
 					this.SendPropertyChanged("numer");
 					this.OnnumerChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.nauczyciel_przedmiot")]
+	public partial class nauczyciel_przedmiot : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _id_nauczyciel_przedmiot;
+		
+		private System.Guid _id_nauczyciel;
+		
+		private System.Guid _id_przedmiot;
+		
+		private EntityRef<nauczyciel> _nauczyciel;
+		
+		private EntityRef<przedmiot> _przedmiot;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onid_nauczyciel_przedmiotChanging(System.Guid value);
+    partial void Onid_nauczyciel_przedmiotChanged();
+    partial void Onid_nauczycielChanging(System.Guid value);
+    partial void Onid_nauczycielChanged();
+    partial void Onid_przedmiotChanging(System.Guid value);
+    partial void Onid_przedmiotChanged();
+    #endregion
+		
+		public nauczyciel_przedmiot()
+		{
+			this._nauczyciel = default(EntityRef<nauczyciel>);
+			this._przedmiot = default(EntityRef<przedmiot>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_nauczyciel_przedmiot", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		public System.Guid id_nauczyciel_przedmiot
+		{
+			get
+			{
+				return this._id_nauczyciel_przedmiot;
+			}
+			set
+			{
+				if ((this._id_nauczyciel_przedmiot != value))
+				{
+					this.Onid_nauczyciel_przedmiotChanging(value);
+					this.SendPropertyChanging();
+					this._id_nauczyciel_przedmiot = value;
+					this.SendPropertyChanged("id_nauczyciel_przedmiot");
+					this.Onid_nauczyciel_przedmiotChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_nauczyciel", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid id_nauczyciel
+		{
+			get
+			{
+				return this._id_nauczyciel;
+			}
+			set
+			{
+				if ((this._id_nauczyciel != value))
+				{
+					if (this._nauczyciel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_nauczycielChanging(value);
+					this.SendPropertyChanging();
+					this._id_nauczyciel = value;
+					this.SendPropertyChanged("id_nauczyciel");
+					this.Onid_nauczycielChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_przedmiot", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid id_przedmiot
+		{
+			get
+			{
+				return this._id_przedmiot;
+			}
+			set
+			{
+				if ((this._id_przedmiot != value))
+				{
+					if (this._przedmiot.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_przedmiotChanging(value);
+					this.SendPropertyChanging();
+					this._id_przedmiot = value;
+					this.SendPropertyChanged("id_przedmiot");
+					this.Onid_przedmiotChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="nauczyciel_nauczyciel_przedmiot", Storage="_nauczyciel", ThisKey="id_nauczyciel", OtherKey="id_nauczyciel", IsForeignKey=true)]
+		public nauczyciel nauczyciel
+		{
+			get
+			{
+				return this._nauczyciel.Entity;
+			}
+			set
+			{
+				nauczyciel previousValue = this._nauczyciel.Entity;
+				if (((previousValue != value) 
+							|| (this._nauczyciel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._nauczyciel.Entity = null;
+						previousValue.nauczyciel_przedmiots.Remove(this);
+					}
+					this._nauczyciel.Entity = value;
+					if ((value != null))
+					{
+						value.nauczyciel_przedmiots.Add(this);
+						this._id_nauczyciel = value.id_nauczyciel;
+					}
+					else
+					{
+						this._id_nauczyciel = default(System.Guid);
+					}
+					this.SendPropertyChanged("nauczyciel");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="przedmiot_nauczyciel_przedmiot", Storage="_przedmiot", ThisKey="id_przedmiot", OtherKey="id_przedmiot", IsForeignKey=true)]
+		public przedmiot przedmiot
+		{
+			get
+			{
+				return this._przedmiot.Entity;
+			}
+			set
+			{
+				przedmiot previousValue = this._przedmiot.Entity;
+				if (((previousValue != value) 
+							|| (this._przedmiot.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._przedmiot.Entity = null;
+						previousValue.nauczyciel_przedmiots.Remove(this);
+					}
+					this._przedmiot.Entity = value;
+					if ((value != null))
+					{
+						value.nauczyciel_przedmiots.Add(this);
+						this._id_przedmiot = value.id_przedmiot;
+					}
+					else
+					{
+						this._id_przedmiot = default(System.Guid);
+					}
+					this.SendPropertyChanged("przedmiot");
 				}
 			}
 		}

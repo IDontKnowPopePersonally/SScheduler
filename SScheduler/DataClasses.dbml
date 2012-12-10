@@ -13,12 +13,14 @@
       <Column Name="id_nauczyciel" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="imie" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
       <Column Name="nazwisko" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="nauczyciel_nauczyciel_przedmiot" Member="nauczyciel_przedmiots" ThisKey="id_nauczyciel" OtherKey="id_nauczyciel" Type="nauczyciel_przedmiot" />
     </Type>
   </Table>
   <Table Name="dbo.przedmiot" Member="przedmiots">
     <Type Name="przedmiot">
       <Column Name="id_przedmiot" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nazwa" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="przedmiot_nauczyciel_przedmiot" Member="nauczyciel_przedmiots" ThisKey="id_przedmiot" OtherKey="id_przedmiot" Type="nauczyciel_przedmiot" />
     </Type>
   </Table>
   <Table Name="dbo.sala" Member="salas">
@@ -26,6 +28,15 @@
       <Column Name="id_sala" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="pojemnosc" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="numer" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nauczyciel_przedmiot" Member="nauczyciel_przedmiots">
+    <Type Name="nauczyciel_przedmiot">
+      <Column Name="id_nauczyciel_przedmiot" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_nauczyciel" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="id_przedmiot" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="nauczyciel_nauczyciel_przedmiot" Member="nauczyciel" ThisKey="id_nauczyciel" OtherKey="id_nauczyciel" Type="nauczyciel" IsForeignKey="true" />
+      <Association Name="przedmiot_nauczyciel_przedmiot" Member="przedmiot" ThisKey="id_przedmiot" OtherKey="id_przedmiot" Type="przedmiot" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
